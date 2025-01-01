@@ -1,0 +1,32 @@
+class Solution {
+    public int[][] imageSmoother(int[][] img) {
+        int m=img.length; //length of row
+        int n=img[0].length; //length of first row gives length of column
+        int count=1;
+        int result[][]=new int[m][n]; //to store the averages
+        int directions[]={-1,0,1}; //helps in previous current and next element finding
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                int sum=img[i][j];
+                count=1; //need to be reset for every new element to count valid numbers
+                for(int dx:directions)
+                {
+                    for(int dy:directions)
+                    {
+                        int nx=i+dx; 
+                        int ny=j+dy;
+                        if(nx>=0 && nx<m && ny>=0 && ny<n && (dx!=0 || dy!=0)) //to check validity of numbers
+                        {
+                            sum+=img[nx][ny];
+                            count++;
+                        }
+                    }
+                }
+               result[i][j]=sum/count; 
+            }
+        }
+        return result;
+    }
+}
